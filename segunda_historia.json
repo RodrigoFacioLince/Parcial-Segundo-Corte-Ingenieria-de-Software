@@ -1,0 +1,64 @@
+{
+  "titulo": "Fuga de la Prisión Orbital",
+  "inicio": "celda",
+  "variables": {
+    "tiene_tarjeta": false,
+    "alarma_activada": false
+  },
+  "escenas": [
+    {
+      "id": "celda",
+      "texto": "Despiertas en la celda. La puerta está entreabierta. Puedes ver un guardia dormido y un pasillo oscuro.",
+      "final": false,
+      "opciones": [
+        {
+          "id": "robar_tarjeta",
+          "texto": "Acercarse y robar la tarjeta del guardia.",
+          "destino": "pasillo",
+          "condiciones": {},
+          "efectos": {"tiene_tarjeta": true, "alarma_activada": true}
+        },
+        {
+          "id": "ir_pasillo",
+          "texto": "Ir al pasillo en silencio.",
+          "destino": "pasillo",
+          "condiciones": {},
+          "efectos": {}
+        }
+      ]
+    },
+    {
+      "id": "pasillo",
+      "texto": "Estás en el pasillo. Al final hay una compuerta de seguridad.",
+      "final": false,
+      "opciones": [
+        {
+          "id": "abrir_compuerta",
+          "texto": "Usar tarjeta en la compuerta.",
+          "destino": "libertad",
+          "condiciones": {"tiene_tarjeta": true},
+          "efectos": {}
+        },
+        {
+          "id": "forzar_compuerta",
+          "texto": "Intentar forzar la compuerta (la alarma sonará).",
+          "destino": "capturado",
+          "condiciones": {"tiene_tarjeta": false},
+          "efectos": {"alarma_activada": true}
+        }
+      ]
+    },
+    {
+      "id": "libertad",
+      "texto": "La compuerta se abre. Subes a una cápsula de escape. ¡Eres libre!",
+      "final": true,
+      "opciones": []
+    },
+    {
+      "id": "capturado",
+      "texto": "Las sirenas suenan. Los guardias te atrapan inmediatamente.",
+      "final": true,
+      "opciones": []
+    }
+  ]
+}
