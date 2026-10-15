@@ -3,8 +3,8 @@
 # La Última Transmisión - Motor de Ficción Interactiva
 
 **Integrantes:**
-* [NOMBRE Rodrigo Andres Facio Lince Beltran]
-* [NOMBRE Luis Gustavo Ruiz Teran]
+* [NOMBRE:Rodrigo Andres Facio Lince Beltran]
+* [NOMBRE:Luis Gustavo Ruiz Teran]
 
 ## Descripción
 Motor de historias interactivas por consola basado en consola. Permite cargar relatos estructurados en JSON, tomar decisiones basadas en condiciones lógicas booleanas, aplicar efectos al estado de la partida y alcanzar múltiples finales.
