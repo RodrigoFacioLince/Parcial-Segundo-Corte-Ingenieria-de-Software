@@ -30,8 +30,13 @@ def iniciar_juego(ruta_archivo):
 
         if escena['final']:
             print("\n*** FIN DE LA HISTORIA ***")
-            resp = input("¿Deseas reiniciar la partida? (s/n): ").strip().lower()
-            if resp == 's':
+            print("Opciones: [u] Deshacer última decisión | [r] Reiniciar partida | [salir] Terminar")
+            resp = input("Elige una opción: ").strip().lower()
+            if resp == 'u':
+                exito, msg = partida.deshacer()
+                print(f"\n>>> {msg} <<<")
+                continue
+            elif resp == 'r':
                 partida.reiniciar()
                 continue
             else:
@@ -39,24 +44,37 @@ def iniciar_juego(ruta_archivo):
 
         opciones_hab = partida.opciones_habilitadas()
         
-        # Corrección del bloqueo detectado en la revisión de requisitos
         if not opciones_hab:
             print("\n*** BLOQUEO: No hay opciones habilitadas en este punto ***")
-            resp = input("¿Deseas reiniciar la partida? (s/n): ").strip().lower()
-            if resp == 's':
+            print("Opciones: [u] Deshacer última decisión | [r] Reiniciar partida")
+            resp = input("Elige una opción: ").strip().lower()
+            if resp == 'u':
+                exito, msg = partida.deshacer()
+                print(f"\n>>> {msg} <<<")
+                continue
+            elif resp == 'r':
                 partida.reiniciar()
                 continue
             else:
                 break
 
-        print("\nOpciones:")
+        print("\nOpciones disponibles:")
         for idx, op in enumerate(opciones_hab):
             print(f"  {idx + 1}. {op['texto']} ({op['id']})")
         
-        seleccion = input("\nElige el ID de la opción (o 'salir' para terminar): ").strip()
+        print("\nComandos adicionales: [u] Deshacer última decisión | [r] Reiniciar | [salir] Terminar")
+        seleccion = input("\nElige el ID de la opción o comando: ").strip()
         
         if seleccion.lower() == 'salir':
             break
+        elif seleccion.lower() == 'u':
+            exito, msg = partida.deshacer()
+            print(f"\n>>> {msg} <<<")
+            continue
+        elif seleccion.lower() == 'r':
+            partida.reiniciar()
+            print("\n>>> Partida reiniciada <<<")
+            continue
 
         exito, msg = partida.procesar_eleccion(seleccion)
         if not exito:
