@@ -53,7 +53,13 @@ Para provocar un error de contenido intencional: edita `segunda_historia.json`, 
 * No existe funcionalidad de retroceso por decisión de diseño consensuada provisionalmente.
 * Interfaz puramente de texto (CLI).
 
+
+## Solicitud de Cambio (Hora 6) - Requisito U6
+Conforme a las directrices de la segunda fase del parcial, se incorporó el mecanismo de **Deshacer (*Undo*)**, el cual cumple estrictamente con las siguientes reglas de negocio[cite: 2]:
+1. **Restauración y Un Solo Nivel:** Deshacer recupera exactamente la escena y las variables anteriores a la última elección válida, consumiendo la posibilidad de retroceso hasta realizar una nueva jugada[cite: 2].
+2. **Inicio y Reinicio:** Al iniciar no hay retroceso disponible; reiniciar la partida limpia por completo el historial de cambios y restaura el estado inicial[cite: 2].
+3. **Entrada Inválida:** Las opciones no válidas o bloqueadas muestran un mensaje de error pero preservan intacto el historial de la última jugada válida[cite: 2].
+4. **Desde un Final:** Es posible ejecutar el retroceso incluso encontrándose en escenas terminales (`E4`, `E5`, `E6`), retornando de forma segura a `E3` con los valores previos[cite: 2].
+
 ## Declaración de Herramientas (IA)
 * Se utilizó un asistente de lenguaje (LLM) como apoyo para formatear los diagramas en sintaxis Mermaid y para validar la redacción de los requisitos no funcionales, bajo estricta revisión de los autores. Todo el código Python fue diseñado lógicamente por el equipo.
-
-**Estado del Cambio (Hora 6):** PENDIENTE DE RECIBIR DOCUMENTO OFICIAL.
