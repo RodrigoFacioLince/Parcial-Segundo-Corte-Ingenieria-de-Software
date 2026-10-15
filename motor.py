@@ -11,7 +11,6 @@ class ValidadorHistoria:
         variables_declaradas = set(datos["variables"].keys())
         ids_escenas = set()
         
-        # Validar escenas y duplicados
         for escena in datos["escenas"]:
             eid = escena.get("id")
             if not eid: return False, "Escena sin ID."
@@ -32,7 +31,6 @@ class ValidadorHistoria:
                 if oid in ids_opciones: return False, f"Opción duplicada '{oid}' en escena '{eid}'."
                 ids_opciones.add(oid)
                 
-                # Validar destinos y variables
                 if op.get("destino") not in [e["id"] for e in datos["escenas"]]:
                     return False, f"Destino inexistente '{op.get('destino')}' en opción '{oid}'."
                 for cond in op.get("condiciones", {}).keys():
@@ -51,6 +49,7 @@ class Partida:
     def reiniciar(self):
         self.estado_variables = self.datos["variables"].copy()
         self.escena_actual_id = self.datos["inicio"]
+        self.historial = None  
         
     def obtener_escena(self, id_escena):
         for e in self.datos["escenas"]:
@@ -73,9 +72,21 @@ class Partida:
         
         if not opcion: return False, "Opción no válida o no habilitada."
         
-        # Aplicar efectos
+        self.historial = (
+            self.escena_actual_id,
+            self.estado_variables.copy()
+        )
+        
         for k, v in opcion.get("efectos", {}).items():
             self.estado_variables[k] = v
             
         self.escena_actual_id = opcion["destino"]
         return True, "Transición exitosa."
+
+    def deshacer(self):
+        if not self.historial:
+            return False, "No hay acciones para deshacer o ya se usó el retroceso."
+        
+        self.escena_actual_id, self.estado_variables = self.historial
+        self.historial = None
+        return True, "Se ha deshecho la última decisión con éxito."

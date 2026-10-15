@@ -69,6 +69,22 @@ class TestMotorHistorias(unittest.TestCase):
         self.assertEqual(self.partida.escena_actual_id, "e1")
         self.assertFalse(self.partida.estado_variables["varA"])
 
+    def test_U6_deshacer_restaura_estado_y_consume_retroceso(self):
+        """U6: Deshacer restaura escena y variables y consume la posibilidad de retroceso."""
+        self.partida.procesar_eleccion("op1")
+        self.assertEqual(self.partida.escena_actual_id, "e2")
+        self.assertTrue(self.partida.estado_variables["varA"])
+        
+        # Ejecutar deshacer con éxito
+        exito, _ = self.partida.deshacer()
+        self.assertTrue(exito)
+        self.assertEqual(self.partida.escena_actual_id, "e1")
+        self.assertFalse(self.partida.estado_variables["varA"])
+        
+        # Un segundo intento consecutivo de deshacer debe fallar (un solo nivel)
+        exito_segundo, _ = self.partida.deshacer()
+        self.assertFalse(exito_segundo)    
+
     def test_I1_integracion_segunda_historia(self):
         """I1: Carga y decisiones con un archivo de historia real (segunda_historia.json)"""
         with open("segunda_historia.json", "r", encoding="utf-8") as f:

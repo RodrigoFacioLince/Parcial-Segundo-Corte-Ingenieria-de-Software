@@ -3,8 +3,8 @@
 # La Última Transmisión - Motor de Ficción Interactiva
 
 **Integrantes:**
-* [NOMBRE:Rodrigo Andres Facio Lince Beltran]
-* [NOMBRE:Luis Gustavo Ruiz Teran]
+* Rodrigo Andres Facio Lince Beltran
+* Luis Gustavo Ruiz Teran
 
 ## Descripción
 Motor de historias interactivas por consola basado en consola. Permite cargar relatos estructurados en JSON, tomar decisiones basadas en condiciones lógicas booleanas, aplicar efectos al estado de la partida y alcanzar múltiples finales.
@@ -50,16 +50,17 @@ El motor lee objetos JSON con la siguiente estructura:
 Para provocar un error de contenido intencional: edita `segunda_historia.json`, cambia un destino de una opción a `"destino_falso"`. Ejecuta el programa y observarás el mensaje: `Error de validación del contenido: Destino inexistente 'destino_falso' en opción...`.
 
 ## Limitaciones Conocidas
-* No existe funcionalidad de retroceso por decisión de diseño consensuada provisionalmente.
 * Interfaz puramente de texto (CLI).
 
 
 ## Solicitud de Cambio (Hora 6) - Requisito U6
-Conforme a las directrices de la segunda fase del parcial, se incorporó el mecanismo de **Deshacer (*Undo*)**, el cual cumple estrictamente con las siguientes reglas de negocio[cite: 2]:
-1. **Restauración y Un Solo Nivel:** Deshacer recupera exactamente la escena y las variables anteriores a la última elección válida, consumiendo la posibilidad de retroceso hasta realizar una nueva jugada[cite: 2].
-2. **Inicio y Reinicio:** Al iniciar no hay retroceso disponible; reiniciar la partida limpia por completo el historial de cambios y restaura el estado inicial[cite: 2].
-3. **Entrada Inválida:** Las opciones no válidas o bloqueadas muestran un mensaje de error pero preservan intacto el historial de la última jugada válida[cite: 2].
-4. **Desde un Final:** Es posible ejecutar el retroceso incluso encontrándose en escenas terminales (`E4`, `E5`, `E6`), retornando de forma segura a `E3` con los valores previos[cite: 2].
+Conforme a las directrices de la segunda fase del parcial, se incorporó el mecanismo de **Deshacer (*Undo*)**, con las siguientes reglas:
+1. **Restauración y un solo nivel:** Deshacer recupera exactamente la escena y las variables anteriores a la última elección válida. La posibilidad de deshacer se consume hasta realizar una nueva jugada.
+2. **Inicio y reinicio:** Al iniciar no hay retroceso disponible. Reiniciar la partida limpia por completo el historial de cambios y restaura el estado inicial.
+3. **Entrada inválida:** Las opciones no válidas o bloqueadas muestran un mensaje de error, pero preservan intacto el historial de la última jugada válida.
+4. **Desde un final:** Es posible deshacer incluso en escenas terminales (`E4`, `E5`, `E6`), retornando a `E3` con los valores previos.
 
 ## Declaración de Herramientas (IA)
 * Se utilizó un asistente de lenguaje (LLM) como apoyo para formatear los diagramas en sintaxis Mermaid y para validar la redacción de los requisitos no funcionales, bajo estricta revisión de los autores. Todo el código Python fue diseñado lógicamente por el equipo.
+
+**Estado del Cambio (Hora 6):** PENDIENTE DE RECIBIR DOCUMENTO OFICIAL.
